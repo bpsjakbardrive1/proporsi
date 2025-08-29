@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Perhitungan Proporsi Variabel</title>
+  <title>Perhitungan Proporsi Jumlah KK</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -40,6 +40,12 @@
     button:hover {
       background: #45a049;
     }
+    .danger {
+      background: #d9534f;
+    }
+    .danger:hover {
+      background: #c9302c;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -64,14 +70,15 @@
   <label for="segmen">Banyak Segmen:</label>
   <input type="number" id="segmen" min="1">
 
-  <label for="totalVar2">Total Variabel 2:</label>
+  <label for="totalVar2">Jumlah KK:</label>
   <input type="number" id="totalVar2" min="1">
 
-  <button onclick="buatInput()">Buat Kotak Input</button>
+  <button onclick="buatInput()">Proses segmen</button>
 
   <form id="formSegmen"></form>
 
   <button onclick="hitung()">Hitung</button>
+  <button class="danger" onclick="resetForm()">Mulai Baru</button>
 
   <div id="hasil"></div>
 
@@ -112,12 +119,9 @@
       `;
 
       let totalV2 = 0;
-      let var2Values = [];
 
-      // Hitung proporsi variabel 2
       for (let i = 0; i < jumlah; i++) {
         let v2 = Math.round((values[i] / totalVar1) * totalVar2);
-        var2Values.push(v2);
         totalV2 += v2;
         hasilHTML += `
           <tr>
@@ -128,7 +132,6 @@
         `;
       }
 
-      // Tambahkan total
       hasilHTML += `
         <tr class="total">
           <td>Total</td>
@@ -139,6 +142,13 @@
       `;
 
       document.getElementById('hasil').innerHTML = hasilHTML;
+    }
+
+    function resetForm() {
+      document.getElementById('segmen').value = "";
+      document.getElementById('totalVar2').value = "";
+      document.getElementById('formSegmen').innerHTML = "";
+      document.getElementById('hasil').innerHTML = "";
     }
   </script>
 </body>
